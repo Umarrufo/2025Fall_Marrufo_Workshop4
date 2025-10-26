@@ -34,9 +34,12 @@ public class DealerShipFileManager
             }
             reader.close();
 
-        } catch (FileNotFoundException ex1) {
+        }
+        catch (FileNotFoundException ex1)
+        {
             System.out.println("Could not find the file");
-        } catch (IOException ex2) {
+        }
+        catch (IOException ex2) {
             System.out.println("File had a problem with it");
         }
 

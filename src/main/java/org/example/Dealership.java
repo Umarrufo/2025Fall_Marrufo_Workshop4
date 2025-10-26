@@ -14,7 +14,7 @@ public class Dealership
         this.name = name;
         this.address = address;
         this.phone = phone;
-        inventory = new ArrayList<>();
+        this.inventory = new ArrayList<>();
     }
 
     public String getName() {
@@ -48,6 +48,50 @@ public class Dealership
     public void setInventory(ArrayList<Vehicle> inventory) {
         this.inventory = inventory;
     }
+
+    public List<Vehicle> getVehiclesByPrice(double min, double max)
+    {
+        return null;
+    }
+    public List<Vehicle> getVehiclesByMakeModel(String make, String model)
+    {
+        return null;
+    }
+    public List<Vehicle> getVehiclesByYear(int year)
+    {
+        return null;
+    }
+
+    public List<Vehicle> getVehiclesByColor(String color)
+    {
+        return null;
+    }
+
+    public List<Vehicle> getVehiclesByPriceMileage(int min, int max)
+    {
+        return null;
+    }
+
+    public List<Vehicle> getVehiclesByType(String vehicleType)
+    {
+        return null;
+    }
+
+    public List<Vehicle> getAllVehicles()
+    {
+        return inventory;
+    }
+
+    public void addVehicle(Vehicle vehicle)
+    {
+        inventory.add(vehicle);
+    }
+
+    public void removeVehicle(Vehicle vehicle)
+    {
+
+    }
+
 
 
 
