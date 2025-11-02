@@ -1,7 +1,6 @@
 package org.example;
 
-public class LeaseContract extends Contract
-{
+public class LeaseContract extends Contract {
     private double expectedEndingValue;
     private double leaseFee;
     private double monthlyPayment;
@@ -42,5 +41,4 @@ public class LeaseContract extends Contract
     public double getMonthlyPayment() {
         return 0;
     }
-    //
 }

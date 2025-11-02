@@ -229,7 +229,6 @@ public class UserInterface
     {
         List<Vehicle> vehicleList = dealership.getAllVehicles();
         displayVehicles(vehicleList);
-
     }
 
     public void processAddVehicleRequest()
