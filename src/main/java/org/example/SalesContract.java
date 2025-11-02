@@ -7,11 +7,10 @@ public class SalesContract extends Contract
     private double processingFee;
     private boolean wantToFinance;
 
-    public SalesContract(String dateOfContract, String customerName, String customerDetail, Vehicle vehicle, double processingFee, boolean wantToFinance) {
+    public SalesContract(String dateOfContract, String customerName, String customerDetail, Vehicle vehicle, double processingFee, boolean wantToFinance)
+    {
         super(dateOfContract, customerName, customerDetail, vehicle);
         this.wantToFinance = wantToFinance;
-
-
     }
 
     public double getSalesTaxAmount() {
