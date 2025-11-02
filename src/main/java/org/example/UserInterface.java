@@ -78,6 +78,7 @@ public class UserInterface
                     break;
                 case "10":
                     processGetContractRequest();
+                    break;
                 case "0":
                     isRunning = false;
                     break;
@@ -106,8 +107,9 @@ public class UserInterface
             {
                 System.out.printf("Here are all the vehicles between %f and %f", minimumPrice, maximumPrice);
                 List<Vehicle> vehicleList = dealership.getVehiclesByPrice(minimumPrice, maximumPrice);
+                displayVehicles(vehicleList);
                 gettingPrice = false;
-                displayVehicles();
+
             }
 
         }
@@ -127,9 +129,10 @@ public class UserInterface
             System.out.println("What is the model of the vehicle?");
             String vehicleModel = scanner.nextLine().toLowerCase();
 
-            List<Vehicle> vehicles = dealership.getVehiclesByMakeModel(vehicleMake, vehicleModel);
+            List<Vehicle> vehicleList = dealership.getVehiclesByMakeModel(vehicleMake, vehicleModel);
+            displayVehicles(vehicleList);
             gettingMakeModel = false;
-            displayVehicles();
+
         }
     }
 
@@ -150,8 +153,9 @@ public class UserInterface
             {
                 System.out.printf("Here are all the vehicles between %d and %d", minimumYear, maximumYear);
                 List<Vehicle> vehicleList = dealership.getVehiclesByYear(minimumYear, maximumYear);
+                displayVehicles(vehicleList);
                 gettingYear = false;
-                displayVehicles();
+
             }
         }
 
@@ -169,9 +173,9 @@ public class UserInterface
             System.out.println("What is the color of the vehicle?");
             String vehicleColor = scanner.nextLine();
 
-            List<Vehicle> vehicles = dealership.getVehiclesByColor(vehicleColor);
+            List<Vehicle> vehicleList = dealership.getVehiclesByColor(vehicleColor);
+            displayVehicles(vehicleList);
             gettingColor = false;
-            displayVehicles();
 
         }
 
@@ -194,8 +198,8 @@ public class UserInterface
             {
                 System.out.printf("Here are all the vehicles between %d and %d", minimumPrice, maximumPrice);
                 List<Vehicle> vehicleList = dealership.getVehiclesByMileage(minimumPrice, maximumPrice);
+                displayVehicles(vehicleList);
                 gettingMileage = false;
-                displayVehicles();
             }
         }
 
@@ -212,16 +216,16 @@ public class UserInterface
             System.out.println("What is the type of the vehicle?");
             String vehicleType = scanner.nextLine().toLowerCase();
 
-            List<Vehicle> vehicles = dealership.getVehiclesByType(vehicleType);
+            List<Vehicle> vehicleList = dealership.getVehiclesByType(vehicleType);
+            displayVehicles(vehicleList);
             gettingType = false;
-            displayVehicles();
         }
     }
 
     public void processGetAllVehicleRequest()
     {
         dealership.getAllVehicles();
-        displayVehicles();
+
     }
 
     public void processAddVehicleRequest()
@@ -235,9 +239,9 @@ public class UserInterface
 
     }
 
-    private void displayVehicles()
+    private void displayVehicles(List<Vehicle> vehicles)
     {
-        for (Vehicle vehicle : dealership.getAllVehicles())
+        for (Vehicle vehicle : vehicles)
         {
             System.out.printf(("\n%d | %d  | %s | %s | %s | %s | %d | %f"),
                     vehicle.getVin(), vehicle.getYear(),
