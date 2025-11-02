@@ -77,7 +77,10 @@ public class UserInterface
                     processRemoveVehicleRequest();
                     break;
                 case "10":
-                    processGetContractRequest();
+                    processGetSalesContractRequest();
+                    break;
+                case "11":
+                    processGetLeaseContractRequest();
                     break;
                 case "0":
                     isRunning = false;
@@ -224,7 +227,8 @@ public class UserInterface
 
     public void processGetAllVehicleRequest()
     {
-        dealership.getAllVehicles();
+        List<Vehicle> vehicleList = dealership.getAllVehicles();
+        displayVehicles(vehicleList);
 
     }
 
@@ -250,10 +254,17 @@ public class UserInterface
                     vehicle.getColor(), vehicle.getOdometer(),
                     vehicle.getPrice());
         }
+        System.out.printf("\n");
     }
 
-    private void processGetContractRequest()
+    private void processGetSalesContractRequest()
     {
         //
     }
+
+    private void processGetLeaseContractRequest()
+    {
+        //
+    }
+
 }
