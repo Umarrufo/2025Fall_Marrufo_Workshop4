@@ -101,14 +101,14 @@ public class UserInterface
         {
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("What is the minimum price for the vehicle?");
+            System.out.println("\nWhat is the minimum price for the vehicle?");
             double minimumPrice = scanner.nextDouble();
             System.out.println("What is the maximum price for the vehicle?");
             double maximumPrice = scanner.nextDouble();
 
             if(minimumPrice < maximumPrice)
             {
-                System.out.printf("Here are all the vehicles between %f and %f", minimumPrice, maximumPrice);
+                System.out.printf("Here are all the vehicles between %.2f and %.2f", minimumPrice, maximumPrice);
                 List<Vehicle> vehicleList = dealership.getVehiclesByPrice(minimumPrice, maximumPrice);
                 displayVehicles(vehicleList);
                 gettingPrice = false;
@@ -127,7 +127,7 @@ public class UserInterface
         {
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("What is the make of the vehicle?");
+            System.out.println("\nWhat is the make of the vehicle?");
             String vehicleMake = scanner.nextLine().toLowerCase();
             System.out.println("What is the model of the vehicle?");
             String vehicleModel = scanner.nextLine().toLowerCase();
@@ -147,7 +147,7 @@ public class UserInterface
         {
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("What is the minimum year for the vehicle?");
+            System.out.println("\nWhat is the minimum year for the vehicle?");
             int minimumYear = scanner.nextInt();
             System.out.println("What is the maximum year for the vehicle?");
             int maximumYear = scanner.nextInt();
@@ -173,7 +173,7 @@ public class UserInterface
         {
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("What is the color of the vehicle?");
+            System.out.println("\nWhat is the color of the vehicle?");
             String vehicleColor = scanner.nextLine();
 
             List<Vehicle> vehicleList = dealership.getVehiclesByColor(vehicleColor);
@@ -192,7 +192,7 @@ public class UserInterface
         {
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("What is the minimum mileage for the vehicle?");
+            System.out.println("\nWhat is the minimum mileage for the vehicle?");
             int minimumPrice = scanner.nextInt();
             System.out.println("What is the maximum mileage for the vehicle?");
             int maximumPrice = scanner.nextInt();
@@ -216,7 +216,7 @@ public class UserInterface
         {
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("What is the type of the vehicle?");
+            System.out.println("\nWhat is the type of the vehicle?");
             String vehicleType = scanner.nextLine().toLowerCase();
 
             List<Vehicle> vehicleList = dealership.getVehiclesByType(vehicleType);
@@ -233,27 +233,73 @@ public class UserInterface
 
     public void processAddVehicleRequest()
     {
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.println("\nEnter the VIN number of the vehicle (Only Numbers):");
+        int vinNumber = scanner.nextInt();
+        System.out.println("Enter the year of the vehicle:");
+        int vehicleYear = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Enter the make of the vehicle:");
+        String vehicleMake = scanner.nextLine();
+        System.out.println("Enter the model of the vehicle:");
+        String vehicleModel = scanner.nextLine();
+        System.out.println("Enter the vehicle type:");
+        String vehicleType = scanner.nextLine();
+        System.out.println("Enter the vehicle color:");
+        String vehicleColor = scanner.nextLine();
+        System.out.println("Enter the odometer reading of the vehicle:");
+        int vehicleOdometer = scanner.nextInt();
+        System.out.println("Enter the price of the vehicle");
+        double vehiclePrice = scanner.nextDouble();
 
+        Vehicle newVehicle = new Vehicle(vinNumber, vehicleYear, vehicleMake, vehicleModel, vehicleType,vehicleColor, vehicleOdometer, vehiclePrice);
+        dealership.addVehicle(newVehicle);
+
+        DealershipFileManager fileManager = new DealershipFileManager();
+        fileManager.saveDealership(dealership);
     }
 
     public void processRemoveVehicleRequest()
     {
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.println("\nEnter the VIN number of the vehicle (Only Numbers):");
+        int vinNumber = scanner.nextInt();
+
+        Vehicle removeVehicle = null;
+
+        for(Vehicle vehicle : dealership.getAllVehicles())
+        {
+            if(vehicle.getVin() == vinNumber)
+            {
+                removeVehicle = vehicle;
+                break;
+            }
+        }
+
+        dealership.removeVehicle(removeVehicle);
+
+        DealershipFileManager fileManager = new DealershipFileManager();
+        fileManager.saveDealership(dealership);
     }
 
     private void displayVehicles(List<Vehicle> vehicles)
     {
+        System.out.printf("\n\n%-10s | %-6s | %-10s | %-12s | %-10s | %-10s | %-10s | %-10s%n",
+                "VIN", "Year", "Make", "Model", "Type", "Color", "Odometer", "Price");
+        System.out.println("---------------------------------------------------------------------------------------------------");
+
         for (Vehicle vehicle : vehicles)
         {
-            System.out.printf(("\n%d | %d  | %s | %s | %s | %s | %d | %f"),
+            System.out.printf(
+                    "%-10d | %-6d | %-10s | %-12s | %-10s | %-10s | %-10d | $%,.2f%n",
                     vehicle.getVin(), vehicle.getYear(),
                     vehicle.getMake(), vehicle.getModel(),
-                    vehicle.getVehicleType(),
-                    vehicle.getColor(), vehicle.getOdometer(),
-                    vehicle.getPrice());
+                    vehicle.getVehicleType(), vehicle.getColor(),
+                    vehicle.getOdometer(), vehicle.getPrice()
+            );
         }
-        System.out.printf("\n");
     }
 
     private void processGetSalesContractRequest()

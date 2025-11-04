@@ -2,7 +2,6 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.example.Vehicle;
 
 public class Dealership
 {
@@ -138,6 +137,6 @@ public class Dealership
 
     public void removeVehicle(Vehicle vehicle)
     {
-
+        inventory.remove(vehicle);
     }
 }
