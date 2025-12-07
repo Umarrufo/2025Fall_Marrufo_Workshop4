@@ -1,21 +1,21 @@
 package org.example;
 
+import dao.VehicleDao;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface
 {
-    private Dealership dealership;
+    private static String dbURL;
+    private static String dbUser;
+    private static String dbPass;
 
-    public UserInterface()
+    public UserInterface(String dbURL, String dbUser, String dbPass)
     {
-        init();
-    }
-
-    private void init()
-    {
-        DealershipFileManager fileManager = new DealershipFileManager();
-        this.dealership = fileManager.getDealership();
+        this.dbURL = dbURL;
+        this.dbUser = dbUser;
+        this.dbPass = dbPass;
     }
 
     public void display()
@@ -79,16 +79,12 @@ public class UserInterface
                 case "10":
                     processGetSalesContractRequest();
                     break;
-                case "11":
-                    processGetLeaseContractRequest();
-                    break;
                 case "0":
                     isRunning = false;
                     break;
                 default:
                     System.out.println("Invalid Choice - Please Try Again");
             }
-
         }
         scanner.close();
     }
@@ -96,6 +92,8 @@ public class UserInterface
     public void processGetByPriceRequest()
     {
         boolean gettingPrice = true;
+
+        VehicleDao dao = new VehicleDao(dbURL, dbUser, dbPass);
 
         while(gettingPrice)
         {
@@ -109,19 +107,20 @@ public class UserInterface
             if(minimumPrice < maximumPrice)
             {
                 System.out.printf("Here are all the vehicles between %.2f and %.2f", minimumPrice, maximumPrice);
-                List<Vehicle> vehicleList = dealership.getVehiclesByPrice(minimumPrice, maximumPrice);
-                displayVehicles(vehicleList);
+
+                List<Vehicle> vehicleList = dao.getVehicleByPrice(minimumPrice, maximumPrice);
+                vehicleList.stream().forEach(x -> System.out.println(x.toString()));
+
                 gettingPrice = false;
-
             }
-
         }
-
     }
 
     public void processGetByMakeModelRequest()
     {
         boolean gettingMakeModel = true;
+
+        VehicleDao dao = new VehicleDao(dbURL, dbUser, dbPass);
 
         while(gettingMakeModel)
         {
@@ -132,16 +131,18 @@ public class UserInterface
             System.out.println("What is the model of the vehicle?");
             String vehicleModel = scanner.nextLine().toLowerCase();
 
-            List<Vehicle> vehicleList = dealership.getVehiclesByMakeModel(vehicleMake, vehicleModel);
-            displayVehicles(vehicleList);
-            gettingMakeModel = false;
+            List<Vehicle> vehicleList = dao.getVehicleByMakeModel(vehicleMake, vehicleModel);
+            vehicleList.stream().forEach(x -> System.out.println(x.toString()));
 
+            gettingMakeModel = false;
         }
     }
 
     public void processGetByYearRequest()
     {
         boolean gettingYear = true;
+
+        VehicleDao dao = new VehicleDao(dbURL, dbUser, dbPass);
 
         while(gettingYear)
         {
@@ -155,19 +156,20 @@ public class UserInterface
             if(minimumYear < maximumYear)
             {
                 System.out.printf("Here are all the vehicles between %d and %d", minimumYear, maximumYear);
-                List<Vehicle> vehicleList = dealership.getVehiclesByYear(minimumYear, maximumYear);
-                displayVehicles(vehicleList);
-                gettingYear = false;
 
+                List<Vehicle> vehicleList = dao.getVehicleByYear(minimumYear, maximumYear);
+                vehicleList.stream().forEach(x -> System.out.println(x.toString()));
+
+                gettingYear = false;
             }
         }
-
-
     }
 
     public void processGetByColorRequest()
     {
         boolean gettingColor = true;
+
+        VehicleDao dao = new VehicleDao(dbURL, dbUser, dbPass);
 
         while(gettingColor)
         {
@@ -176,17 +178,18 @@ public class UserInterface
             System.out.println("\nWhat is the color of the vehicle?");
             String vehicleColor = scanner.nextLine();
 
-            List<Vehicle> vehicleList = dealership.getVehiclesByColor(vehicleColor);
-            displayVehicles(vehicleList);
+            List<Vehicle> vehicleList = dao.getVehicleByColor(vehicleColor);
+            vehicleList.stream().forEach(x -> System.out.println(x.toString()));
+
             gettingColor = false;
-
         }
-
     }
 
     public void processGetByMileageRequest()
     {
         boolean gettingMileage = true;
+
+        VehicleDao dao = new VehicleDao(dbURL, dbUser, dbPass);
 
         while(gettingMileage)
         {
@@ -200,17 +203,20 @@ public class UserInterface
             if(minimumPrice < maximumPrice)
             {
                 System.out.printf("Here are all the vehicles between %d and %d", minimumPrice, maximumPrice);
-                List<Vehicle> vehicleList = dealership.getVehiclesByMileage(minimumPrice, maximumPrice);
-                displayVehicles(vehicleList);
+
+                List<Vehicle> vehicleList = dao.getVehicleByMileRange(minimumPrice, maximumPrice);
+                vehicleList.stream().forEach(x -> System.out.println(x.toString()));
+
                 gettingMileage = false;
             }
         }
-
     }
 
     public void processGetByVehicleTypeRequest()
     {
         boolean gettingType = true;
+
+        VehicleDao dao = new VehicleDao(dbURL, dbUser, dbPass);
 
         while(gettingType)
         {
@@ -219,20 +225,25 @@ public class UserInterface
             System.out.println("\nWhat is the type of the vehicle?");
             String vehicleType = scanner.nextLine().toLowerCase();
 
-            List<Vehicle> vehicleList = dealership.getVehiclesByType(vehicleType);
-            displayVehicles(vehicleList);
+            List<Vehicle> vehicleList = dao.getVehicleByVehicleType(vehicleType);
+            vehicleList.stream().forEach(x -> System.out.println(x.toString()));
+
             gettingType = false;
         }
     }
 
     public void processGetAllVehicleRequest()
     {
-        List<Vehicle> vehicleList = dealership.getAllVehicles();
-        displayVehicles(vehicleList);
+        VehicleDao dao = new VehicleDao(dbURL, dbUser, dbPass);
+
+        List<Vehicle> vehicleList = dao.getAllVehicles();
+        vehicleList.stream().forEach(x -> System.out.println(x.toString()));
     }
 
     public void processAddVehicleRequest()
     {
+        VehicleDao dao = new VehicleDao(dbURL, dbUser, dbPass);
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nEnter the VIN number of the vehicle (Only Numbers):");
@@ -253,54 +264,23 @@ public class UserInterface
         System.out.println("Enter the price of the vehicle");
         double vehiclePrice = scanner.nextDouble();
 
-        Vehicle newVehicle = new Vehicle(vinNumber, vehicleYear, vehicleMake, vehicleModel, vehicleType,vehicleColor, vehicleOdometer, vehiclePrice);
-        dealership.addVehicle(newVehicle);
+        Vehicle newVehicle = new Vehicle(vinNumber, vehicleYear, vehicleMake, vehicleModel, vehicleType, vehicleColor, vehicleOdometer, vehiclePrice);
 
-        DealershipFileManager fileManager = new DealershipFileManager();
-        fileManager.saveDealership(dealership);
+        dao.addVehicle(newVehicle);
     }
 
     public void processRemoveVehicleRequest()
     {
+        VehicleDao dao = new VehicleDao(dbURL, dbUser, dbPass);
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nEnter the VIN number of the vehicle (Only Numbers):");
         int vinNumber = scanner.nextInt();
 
-        Vehicle removeVehicle = null;
-
-        for(Vehicle vehicle : dealership.getAllVehicles())
-        {
-            if(vehicle.getVin() == vinNumber)
-            {
-                removeVehicle = vehicle;
-                break;
-            }
-        }
-
-        dealership.removeVehicle(removeVehicle);
-
-        DealershipFileManager fileManager = new DealershipFileManager();
-        fileManager.saveDealership(dealership);
+        dao.removeVehicle(vinNumber);
     }
 
-    private void displayVehicles(List<Vehicle> vehicles)
-    {
-        System.out.printf("\n\n%-10s | %-6s | %-10s | %-12s | %-10s | %-10s | %-10s | %-10s%n",
-                "VIN", "Year", "Make", "Model", "Type", "Color", "Odometer", "Price");
-        System.out.println("---------------------------------------------------------------------------------------------------");
-
-        for (Vehicle vehicle : vehicles)
-        {
-            System.out.printf(
-                    "%-10d | %-6d | %-10s | %-12s | %-10s | %-10s | %-10d | $%,.2f%n",
-                    vehicle.getVin(), vehicle.getYear(),
-                    vehicle.getMake(), vehicle.getModel(),
-                    vehicle.getVehicleType(), vehicle.getColor(),
-                    vehicle.getOdometer(), vehicle.getPrice()
-            );
-        }
-    }
 
     private void processGetSalesContractRequest()
     {

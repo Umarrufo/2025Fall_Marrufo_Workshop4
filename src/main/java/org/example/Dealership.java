@@ -61,6 +61,7 @@ public class Dealership
         }
         return vehicles;
     }
+
     public List<Vehicle> getVehiclesByMakeModel(String make, String model)
     {
         List<Vehicle> vehicles = new ArrayList<>();

@@ -1,43 +1,31 @@
 package org.example;
 
-public class SalesContract extends Contract
-{
-    private double salesTaxAmount = 0.05;
-    private double recordingFee = 100;
+public class SalesContract extends Contract {
+    private int salesId;
     private double processingFee;
     private boolean wantToFinance;
 
-    public SalesContract(String dateOfContract, String customerName, String customerDetail, Vehicle vehicle, double processingFee, boolean wantToFinance)
-    {
-        super(dateOfContract, customerName, customerDetail, vehicle);
+    public SalesContract(String dateOfContract, String customerName, String customerEmail, Vehicle vehicle, int salesId, double processingFee, boolean wantToFinance) {
+        super(dateOfContract, customerName, customerEmail, vehicle);
+        this.salesId = salesId;
         this.processingFee = processingFee;
         this.wantToFinance = wantToFinance;
     }
 
-    public double getSalesTaxAmount() {
-        return salesTaxAmount;
+    public SalesContract(String dateOfContract, String customerName, String customerEmail, Vehicle vehicle) {
+        super(dateOfContract, customerName, customerEmail, vehicle);
     }
 
-    public void setSalesTaxAmount(double salesTaxAmount) {
-        this.salesTaxAmount = salesTaxAmount;
+    public int getSalesId() {
+        return salesId;
     }
 
-    public double getRecordingFee() {
-        return recordingFee;
+    public void setSalesId(int salesId) {
+        this.salesId = salesId;
     }
 
-    public void setRecordingFee(double recordingFee) {
-        this.recordingFee = recordingFee;
-    }
-
-    public double getProcessingFee()
-    {
-        if(getVehicle().getPrice() < 10000)
-        {
-            return 295;
-        }
-        else
-            return 495;
+    public double getProcessingFee() {
+        return processingFee;
     }
 
     public void setProcessingFee(double processingFee) {
@@ -53,40 +41,21 @@ public class SalesContract extends Contract
     }
 
     @Override
-    public double getTotalPrice()
-    {
-
-        double totalPrice = 0;
-        return totalPrice;
+    public double getTotalPrice() {
+        return 0;
     }
 
     @Override
-    public double getMonthlyPayment()
-    {
-        double interestRate;
-        double months;
-        double monthlyPayment;
+    public double getMonthlyPayment() {
+        return 0;
+    }
 
-        if(wantToFinance)
-        {
-            if(getVehicle().getPrice() > 10000)
-            {
-                interestRate = 0.0425;
-                months = 48;
-            }
-            else
-            {
-                interestRate = 0.0525;
-                months = 24;
-            }
-
-            monthlyPayment = 0;
-
-        }
-        else
-        {
-            monthlyPayment = 0;
-        }
-        return monthlyPayment;
+    @Override
+    public String toString() {
+        return "SalesContract{" +
+                "salesId=" + salesId +
+                ", processingFee=" + processingFee +
+                ", wantToFinance=" + wantToFinance +
+                '}';
     }
 }

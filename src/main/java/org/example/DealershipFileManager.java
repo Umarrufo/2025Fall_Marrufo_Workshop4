@@ -38,7 +38,7 @@ public class DealershipFileManager
                 newVehicle.setVehicleType(vehicleData[4]);
                 newVehicle.setColor(vehicleData[5]);
                 newVehicle.setOdometer(Integer.parseInt(vehicleData[6]));
-                newVehicle.setPrice(Double.parseDouble(vehicleData[7]));
+                //newVehicle.setPrice(Double.parseDouble(vehicleData[7]));
 
                 vehicles.add(newVehicle);
             }

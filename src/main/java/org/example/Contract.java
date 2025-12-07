@@ -7,11 +7,14 @@ public abstract class Contract
     private String customerEmail;
     private Vehicle vehicle;
 
-    public Contract(String dateOfContract, String customerName, String customerDetail, Vehicle vehicle) {
+    public Contract(String dateOfContract, String customerName, String customerEmail, Vehicle vehicle) {
         this.dateOfContract = dateOfContract;
         this.customerName = customerName;
-        this.customerEmail = customerDetail;
+        this.customerEmail = customerEmail;
         this.vehicle = vehicle;
+    }
+
+    public Contract() {
     }
 
     public String getDateOfContract() {
