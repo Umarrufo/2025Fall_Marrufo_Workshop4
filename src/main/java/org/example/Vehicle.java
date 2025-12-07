@@ -27,7 +27,17 @@ public class Vehicle
     public Vehicle() {
     }
 
-    public Vehicle(int vinNumber, int vehicleYear, String vehicleMake, String vehicleModel, String vehicleType, String vehicleColor, int vehicleOdometer, double vehiclePrice) {
+    public Vehicle(int vinNumber, int vehicleYear, String vehicleMake, String vehicleModel, String vehicleType, String vehicleColor, int vehicleOdometer, double vehiclePrice)
+    {
+        this.vin = vinNumber;
+        this.year = vehicleYear;
+        this.make = vehicleMake;
+        this.model = vehicleModel;
+        this.vehicleType = vehicleType;
+        this.color = vehicleColor;
+        this.odometer = vehicleOdometer;
+        this.price = vehiclePrice;
+        this.sold = false;
     }
 
     public int getVin() {

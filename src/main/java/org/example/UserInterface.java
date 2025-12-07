@@ -32,7 +32,7 @@ public class UserInterface
             System.out.println("3)  Show Vehicles by Year");
             System.out.println("4)  Show Vehicles by Color");
             System.out.println("5)  Show Vehicles by Mileage");
-            System.out.println("6)  Show Vehicles by Type (Car, Truck, SUV, Van)");
+            System.out.println("6)  Show Vehicles by Type (Sedan, Truck, SUV)");
             System.out.println("7)  Show All Vehicles");
             System.out.println("8)  Add a Vehicle");
             System.out.println("9)  Remove a Vehicle");
@@ -108,6 +108,8 @@ public class UserInterface
             {
                 System.out.printf("Here are all the vehicles between %.2f and %.2f", minimumPrice, maximumPrice);
 
+                System.out.println();
+
                 List<Vehicle> vehicleList = dao.getVehicleByPrice(minimumPrice, maximumPrice);
                 vehicleList.stream().forEach(x -> System.out.println(x.toString()));
 
@@ -130,6 +132,8 @@ public class UserInterface
             String vehicleMake = scanner.nextLine().toLowerCase();
             System.out.println("What is the model of the vehicle?");
             String vehicleModel = scanner.nextLine().toLowerCase();
+
+            System.out.println();
 
             List<Vehicle> vehicleList = dao.getVehicleByMakeModel(vehicleMake, vehicleModel);
             vehicleList.stream().forEach(x -> System.out.println(x.toString()));
@@ -157,6 +161,8 @@ public class UserInterface
             {
                 System.out.printf("Here are all the vehicles between %d and %d", minimumYear, maximumYear);
 
+                System.out.println();
+
                 List<Vehicle> vehicleList = dao.getVehicleByYear(minimumYear, maximumYear);
                 vehicleList.stream().forEach(x -> System.out.println(x.toString()));
 
@@ -177,6 +183,8 @@ public class UserInterface
 
             System.out.println("\nWhat is the color of the vehicle?");
             String vehicleColor = scanner.nextLine();
+
+            System.out.println();
 
             List<Vehicle> vehicleList = dao.getVehicleByColor(vehicleColor);
             vehicleList.stream().forEach(x -> System.out.println(x.toString()));
@@ -204,6 +212,8 @@ public class UserInterface
             {
                 System.out.printf("Here are all the vehicles between %d and %d", minimumPrice, maximumPrice);
 
+                System.out.println();
+
                 List<Vehicle> vehicleList = dao.getVehicleByMileRange(minimumPrice, maximumPrice);
                 vehicleList.stream().forEach(x -> System.out.println(x.toString()));
 
@@ -224,6 +234,8 @@ public class UserInterface
 
             System.out.println("\nWhat is the type of the vehicle?");
             String vehicleType = scanner.nextLine().toLowerCase();
+
+            System.out.println();
 
             List<Vehicle> vehicleList = dao.getVehicleByVehicleType(vehicleType);
             vehicleList.stream().forEach(x -> System.out.println(x.toString()));
